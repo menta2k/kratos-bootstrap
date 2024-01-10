@@ -1,0 +1,203 @@
+syntax = "proto3";
+
+package conf;
+
+option go_package = "github.com/menta2k/kratos-bootstrap/gen/api/go/conf/v1;conf";
+
+import "google/protobuf/duration.proto";
+import "conf/v1/kratos_conf_middleware.proto";
+
+// 服务器
+message Server {
+  // REST
+  message REST {
+    message CORS {
+      repeated string headers = 1;
+      repeated string methods = 2;
+      repeated string origins = 3;
+    }
+
+    string network = 1;
+    string addr = 2;
+    google.protobuf.Duration timeout = 3;
+    CORS cors = 4;
+    Middleware middleware = 5;
+    bool enable_swagger = 6;
+    bool enable_pprof = 7;
+  }
+
+  // gPRC
+  message GRPC {
+    string network = 1;
+    string addr = 2;
+    google.protobuf.Duration timeout = 3;
+    Middleware middleware = 4;
+  }
+
+  // Websocket
+  message Websocket {
+    string network = 1;
+    string addr = 2;
+    string path = 3;
+    string codec = 4;
+    google.protobuf.Duration timeout = 5;
+  }
+
+  // MQTT
+  message Mqtt {
+    string addr = 1;
+  }
+
+  // Kafka
+  message Kafka {
+    repeated string addrs = 1;
+  }
+
+  // RabbitMQ
+  message RabbitMQ {
+    repeated string addrs = 1;
+  }
+
+  message ActiveMQ {
+    string endpoint = 1;
+    string codec = 2;
+  }
+
+  message NATS {
+    string endpoint = 1;
+    string codec = 2;
+  }
+
+  message NSQ {
+    string endpoint = 1;
+    string codec = 2;
+  }
+
+  message Pulsar {
+    string endpoint = 1;
+    string codec = 2;
+  }
+
+  message Redis {
+    string endpoint = 1;
+    string codec = 2;
+  }
+
+  message RocketMQ {
+    string version = 1;
+    string codec = 2;
+    bool enable_trace = 3;
+
+    repeated string name_servers = 4;
+    string name_server_domain = 5;
+
+    string access_key = 6;
+    string secret_key = 7;
+    string security_token = 8;
+
+    string namespace = 9;
+    string instance_name = 10;
+    string group_name = 11;
+  }
+
+  // Asynq
+  message Asynq {
+    string endpoint = 1;
+    string password = 2;
+    int32 db = 3;
+    string location = 4;
+  }
+
+  // Machinery
+  message Machinery {
+    repeated string brokers = 1;
+    repeated string backends = 2;
+  }
+
+  // SSE
+  message SSE {
+    string network = 1; // network
+    string addr = 2;  // Service listening address
+    string path = 3;  // path
+    string codec = 4;  // codec
+
+    google.protobuf.Duration timeout = 5; // timeout
+    google.protobuf.Duration event_ttl = 6; // timeout
+
+    bool auto_stream = 7; //
+    bool auto_reply = 8; //
+    bool split_data = 9; //
+    bool encode_base64 = 10; // Encode base e64
+  }
+
+  // SocketIO
+  message SocketIO {
+    string network = 1; // network
+    string addr = 2;  // Service listening address
+    string path = 3;  // path
+    string codec = 4;  // codec
+  }
+
+  // SignalR
+  message SignalR {
+    string network = 1; // network
+    string addr = 2;  // Service listening address
+    string codec = 3;  // codec
+
+    google.protobuf.Duration keep_alive_interval = 4; // timeout
+    google.protobuf.Duration chan_receive_timeout = 5; // timeout
+    bool debug = 6; // Debug switch
+    uint32 stream_buffer_capacity = 7; //
+  }
+
+  // GraphQL
+  message GraphQL {
+    string network = 1; // network
+    string addr = 2;  // Service listening address
+    string path = 3;  // path
+    string codec = 4;  // codec
+    google.protobuf.Duration timeout = 5; // timeout
+    bool strict_slash = 6;
+  }
+
+  // Thrift
+  message Thrift {
+    string network = 1; // network
+    string addr = 2;  // Service listening address
+    string protocol = 3;
+    bool buffered = 4;
+    bool framed = 5;
+    bool buffer_size = 6;
+  }
+
+  // RPC
+
+  REST rest = 1;  // REST service
+  GRPC grpc = 2;  // gRPC service
+  GraphQL graphql = 3;  // GraphQL service
+  Thrift thrift = 4;  // Thrift service
+
+  // Message Queue
+
+  Mqtt mqtt = 10;  // Mqtt service
+  Kafka kafka = 11;  //Kafka service
+  RabbitMQ rabbitmq = 12;
+  ActiveMQ activemq = 13;
+  NATS nats = 14;
+  NSQ nsq = 15; 
+  Pulsar pulsar = 16;
+  Redis redis = 17;
+  RocketMQ rocketmq = 18;
+
+ // RealTime
+
+  Websocket websocket = 20;
+  SSE sse = 21;
+  SocketIO socketio = 22;
+  SignalR signalr = 23;
+
+  // Task Queue
+
+  Asynq asynq = 30;
+  Machinery machinery = 31;
+}

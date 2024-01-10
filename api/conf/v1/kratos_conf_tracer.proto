@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package conf;
+
+option go_package = "github.com/menta2k/kratos-bootstrap/gen/api/go/conf/v1;conf";
+
+// 链路追踪
+message Tracer {
+  string batcher = 1; // Jaeger or zipkin
+  string endpoint = 2;  // port
+  double sampler = 3; // Sampling rate, default: 1.0
+  string env = 4; // Operating environment: dev, debug, product
+  bool insecure = 5;
+}

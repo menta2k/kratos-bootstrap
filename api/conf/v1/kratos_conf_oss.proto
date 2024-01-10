@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package conf;
+
+option go_package = "github.com/menta2k/kratos-bootstrap/gen/api/go/conf/v1;conf";
+
+message OSS {
+  // MinIO
+  message MinIO {
+    string endpoint = 1;
+    string access_key = 2;
+    string secret_key = 3;
+    string token = 4;
+    bool use_ssl = 5;
+    string upload_host = 6;
+    string download_host = 7;
+  }
+
+  MinIO minio = 1;
+}

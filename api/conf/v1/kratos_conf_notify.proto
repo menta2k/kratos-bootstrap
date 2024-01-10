@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package conf;
+
+option go_package = "github.com/menta2k/kratos-bootstrap/gen/api/go/conf/v1;conf";
+
+// Notification
+message Notification {
+  // Sms
+  message SMS {
+    string endpoint = 1; 
+    string region_id = 2;
+    string access_key_id = 3;
+    string access_key_secret = 4;
+  }
+
+  SMS sms = 1;
+}

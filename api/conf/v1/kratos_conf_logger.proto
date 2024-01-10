@@ -1,0 +1,55 @@
+syntax = "proto3";
+
+package conf;
+
+option go_package = "github.com/menta2k/kratos-bootstrap/gen/api/go/conf/v1;conf";
+
+// Logger
+message Logger {
+  // Zap
+  message Zap {
+    string filename = 1; //
+    string level = 2; //
+    int32 max_size = 3; //
+    int32 max_age = 4; //
+    int32 max_backups = 5; //
+  }
+
+  // logrus
+  message Logrus {
+    string level = 1; // Log level
+    string formatter = 2; // Output format: text, json.
+    string timestamp_format = 3; // Define the timestamp format, for example: "2006-01-02 15:04:05"
+    bool disable_colors = 4; // Disable color output 
+    bool disable_timestamp = 5; // Tisable timstamp
+  }
+
+  // Fluent
+  message Fluent {
+    string endpoint = 1; // endpoint address
+  }
+
+  // 阿里云
+  message Aliyun {
+    string endpoint = 1; // endpoint address
+    string project = 2; //
+    string access_key = 3; //
+    string access_secret = 4; //
+  }
+
+  // 腾讯
+  message Tencent {
+    string endpoint = 1; // endpoint address
+    string topic_id = 2; //
+    string access_key = 3; // 
+    string access_secret = 4; //
+  }
+
+  string type = 1;
+
+  Zap zap = 2;
+  Logrus logrus = 3;
+  Fluent fluent = 4;
+  Aliyun aliyun = 5;
+  Tencent tencent = 6;
+}
